@@ -43,7 +43,7 @@ namespace BuildOrder.Order.Buildings
                 {
                    
                         System.Console.WriteLine("Time: " + (actualTime).ToMinuteString() +
-                                              ", drone at natural");
+                                              ", drone ready to build spawning pool");
                         return zerg.TryBuildBuilding<SpawningPool>(key, _drone, BuildingSettings.SpawningPool);
                 }
             }

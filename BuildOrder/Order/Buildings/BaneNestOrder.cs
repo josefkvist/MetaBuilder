@@ -46,7 +46,7 @@ namespace BuildOrder.Order.Buildings
                 {
                    
                         System.Console.WriteLine("Time: " + (actualTime).ToMinuteString() +
-                                              ", drone at natural");
+                                              ", drone ready to build Baneling nest");
                         return zerg.TryBuildBuilding<BaneNest>(key, _drone, BuildingSettings.BaneNest, typeof(SpawningPool));
                 }
             }
