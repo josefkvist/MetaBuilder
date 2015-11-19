@@ -20,7 +20,7 @@ namespace MetBuilder.Console
          * Lings - done
          * Roaches - done
          * Tune in
-         * bane nest
+         * bane nest - done
          * Banes
          * queen energy - done
          * Queen not fixed on base
