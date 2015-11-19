@@ -25,7 +25,7 @@ namespace MetBuilder.Console
          * queen energy - done
          * Queen not fixed on base
          * queen walk between hatches
-         * rally drones to natural
+         * rally drones to natural - done
          * Lair
          * extractortrick
          * ravager

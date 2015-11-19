@@ -32,8 +32,6 @@ namespace MetaBuilder.Core
         private List<IEnergy> _energies; 
         private double _stepTime;
 
-        public int CurrentSupply { get { return _counters.Last().Supply; } }
-
         public Base(double stepTime)
         {
             InProductions = new Dictionary<int, IProduction>();
@@ -101,7 +99,7 @@ namespace MetaBuilder.Core
             var supplyHatch = (from hatch in _hatcheries.Where(x => x.IsFinished(time)) select hatch.Supply).Sum();
             var supplyOl = (from ol in _overLords.Where(x => x.IsFinished(time)) select ol.Supply).Sum();
             currentCounter.SupplyLimit = supplyOl + supplyHatch;
-            currentCounter.Supply = (int) supply;
+            currentCounter.Supply = (int) Math.Round(supply,0);
         }
 
         private void StepForEnergies(double time)
@@ -175,7 +173,7 @@ namespace MetaBuilder.Core
                 && currentCounter.SupplyLimit >= currentCounter.Supply + UnitSettings.Drone.Supply)
             {
                 currentCounter.Minerals -= UnitSettings.Drone.Cost.Minerals;
-                currentCounter.Supply += UnitSettings.Drone.Supply;
+                currentCounter.Supply += (int)UnitSettings.Drone.Supply;
                 hatchWithLarva.ConsumeLarva();
                 if (typeof (T) == typeof (MineralDrone))
                 {
@@ -407,6 +405,7 @@ namespace MetaBuilder.Core
                 && neededBuilding != null
                 && isDependTypeFinished)
             {
+                currentCounter.Supply += unitValues.Supply;
                 currentCounter.Minerals -= unitValues.Cost.Minerals;
                 currentCounter.Gas -= unitValues.Cost.Gas;
                 hatchWithLarva.ConsumeLarva();

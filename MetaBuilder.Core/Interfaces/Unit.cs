@@ -13,7 +13,7 @@ namespace MetaBuilder.Core.Interfaces
         protected double _buildTime;
         public string Name { get; set; }
 
-        protected Unit(double created, double buildTime, int supply, string name)
+        protected Unit(double created, double buildTime, double supply, string name)
         {
             _created = created;
             _buildTime = buildTime;

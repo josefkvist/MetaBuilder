@@ -18,7 +18,7 @@ namespace MetaBuilder.Core.Models
 
         public int Minerals { get; set; }
         public int Gas { get; set; }
-        public int Supply { get; set; }
+        public double Supply { get; set; }
         public int SupplyLimit { get; set; }
     }
 }

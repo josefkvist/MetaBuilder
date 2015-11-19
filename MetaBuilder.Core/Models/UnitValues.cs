@@ -8,7 +8,7 @@ namespace MetaBuilder.Core.Models
 {
     public struct UnitValues
     {
-        public UnitValues(int supply, int minerals, int gas, double buildTime, string name, Type buildingType)
+        public UnitValues(double supply, int minerals, int gas, double buildTime, string name, Type buildingType)
             : this()
         {
             Supply = supply;
@@ -17,7 +17,7 @@ namespace MetaBuilder.Core.Models
             Name = name;
             BuildingType = buildingType;
         }
-        public int Supply { get; set; }
+        public double Supply { get; set; }
         public double BuildTime { get; set; }
         public Cost Cost { get; set; }
         public string Name { get; set; }
