@@ -41,5 +41,16 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
-*.dll
-*.pdb
+MetaBuilder.v12.suo
+MetBuilder.Console/bin/
+MetaBuilder/obj/
+MetaBuilder/bin/
+BuildOrder/obj/
+BuildOrder/bin/
+MetaBuilder.Core/obj/
+MetaBuilder.Core/bin/
+MetBuilder.Console/obj/
+TestNewThings/bin/
+TestNewThings/obj/
+MetBuilder.Console/bin/
+BuildOrder/obj/
