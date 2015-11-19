@@ -409,6 +409,11 @@ namespace MetaBuilder.Core
                 currentCounter.Minerals -= unitValues.Cost.Minerals;
                 currentCounter.Gas -= unitValues.Cost.Gas;
                 hatchWithLarva.ConsumeLarva();
+                if (typeof (T) == typeof (Zergling))
+                {
+                    var extraUnit = (T)Activator.CreateInstance(typeof(T), time);
+                    _units.Add(extraUnit);
+                }
                 var unit = (T)Activator.CreateInstance(typeof(T), time);
                 _units.Add(unit);
                 InProductions.Add(key, unit);

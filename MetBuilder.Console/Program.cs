@@ -19,13 +19,14 @@ namespace MetBuilder.Console
          * Den - done
          * Lings - done
          * Roaches - done
-         * Tune in
-         * bane nest - done
-         * Banes
          * queen energy - done
+         * bane nest - done
+         * rally drones to natural - done
+
+         * * Tune in
+         * Banes
          * Queen not fixed on base
          * queen walk between hatches
-         * rally drones to natural - done
          * Lair
          * extractortrick
          * ravager
@@ -66,7 +67,7 @@ namespace MetBuilder.Console
                                             + ", Supply: " + zerg.Counters.First().Supply
                                             + "/" + zerg.Counters.First().SupplyLimit);
             var buildOrders = new List<IOrder>();
-            buildOrders.AddRange(Openers.DroneOpener());
+            buildOrders.AddRange(Openers.BasicOpener());
             var indexMax = (int)(totalSimulationTime / Settings.TimeStep);
             for (int i = 1; i < indexMax; i++)
             {

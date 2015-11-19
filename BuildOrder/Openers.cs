@@ -8,6 +8,8 @@ namespace BuildOrder
 {
     public static class Openers
     {
+
+
         public static List<IOrder> DroneOpener()
         {
             return new List<IOrder>()
@@ -70,10 +72,7 @@ namespace BuildOrder
                 new QueenOrder(),
                 new QueenOrder(),
                 new ZerglingOrder(),
-                new MineralDroneOrder(),
-                new MineralDroneOrder(),
-                new MineralDroneOrder(),
-                new ZerglingOrder()
+
             };
         }
     }
