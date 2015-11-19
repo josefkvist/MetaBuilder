@@ -43,6 +43,7 @@
     <Compile Include="Buildings\Zerg\EvolutionChamber.cs" />
     <Compile Include="Buildings\Zerg\Extractor.cs" />
     <Compile Include="Buildings\Zerg\Hatchery.cs" />
+    <Compile Include="Buildings\Zerg\BaneNest.cs" />
     <Compile Include="Buildings\Zerg\RoachWaren.cs" />
     <Compile Include="Buildings\Zerg\SpawningPool.cs" />
     <Compile Include="Buildings\Zerg\Upgrade.cs" />

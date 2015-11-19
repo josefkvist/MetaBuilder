@@ -43,6 +43,7 @@
     <Compile Include="Openers.cs" />
     <Compile Include="Order\Buildings\ExtractorOrder.cs" />
     <Compile Include="Order\Buildings\HatcheryOrder.cs" />
+    <Compile Include="Order\Buildings\BaneNestOrder.cs" />
     <Compile Include="Order\Buildings\SpawningPoolOrder.cs" />
     <Compile Include="Order\Units\GasDroneOrder.cs" />
     <Compile Include="Order\Units\MineralDroneOrder.cs" />

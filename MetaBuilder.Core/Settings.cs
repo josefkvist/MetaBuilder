@@ -19,6 +19,7 @@ namespace MetaBuilder.Core
     {
         public static BuildingValues Hatchery = new BuildingValues(300, 0, 71, "Hatchery");
         public static BuildingValues SpawningPool = new BuildingValues(200, 0, 45, "Spawning pool");
+        public static BuildingValues BaneNest = new BuildingValues(100, 50, 39, "BanelingNest");
         public static BuildingValues Extractor = new BuildingValues(25, 0, 21, "Extractor");
         public static BuildingValues EvolutionChamber = new BuildingValues(75, 0, 26, "Evolution chamber");
         public static BuildingValues RoachWaren = new BuildingValues(150, 0, 39, "Roach waren");

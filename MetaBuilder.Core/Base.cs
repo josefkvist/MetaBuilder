@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
@@ -177,12 +178,15 @@ namespace MetaBuilder.Core
             return false;
         }
 
-        public bool TryBuildBuilding<T>(int key, MovingDrone drone, BuildingValues buildingValues) where T : Building
+        public bool TryBuildBuilding<T>(int key, MovingDrone drone, BuildingValues buildingValues, Type dependType = null) where T : Building
         {
             var currentCounter = _counters.Last();
-            
             var time = GetActualTime();
-            if (currentCounter.Minerals >= buildingValues.Cost.Minerals && currentCounter.Gas >= buildingValues.Cost.Gas)
+            var isDependTypeFinished = dependType == null || _buildings.Any(x => x.GetType() == dependType && x.IsFinished(time));
+
+            if (currentCounter.Minerals >= buildingValues.Cost.Minerals 
+                && currentCounter.Gas >= buildingValues.Cost.Gas 
+                && isDependTypeFinished)
             {
                 currentCounter.Minerals -= buildingValues.Cost.Minerals;
                 currentCounter.Gas -= buildingValues.Cost.Gas;
@@ -221,9 +225,9 @@ namespace MetaBuilder.Core
 
             var time = GetActualTime();
             var hatch = _buildings.FirstOrDefault(x => x.IsIdle(time) && x.GetType() == typeof(Hatchery)) as Hatchery;
-            var pool = _buildings.FirstOrDefault(x => x.IsFinished(time) && x.GetType() == typeof (SpawningPool));
+            var poolIsFinished = _buildings.Any(x => x.IsFinished(time) && x.GetType() == typeof (SpawningPool));
             if (hatch == null) return false;
-            if (currentCounter.Minerals < UnitSettings.Queen.Cost.Minerals && pool != null)
+            if (currentCounter.Minerals < UnitSettings.Queen.Cost.Minerals && poolIsFinished)
                 return false;
             if (hatch.SwitchIdle()) return false;
             currentCounter.Minerals -= UnitSettings.Queen.Cost.Minerals;
@@ -339,10 +343,11 @@ namespace MetaBuilder.Core
             return true;
         }
 
-        public bool TryBuildBasicArmyUnit<T>(int key, UnitValues unitValues) where T : Unit
+        public bool TryBuildBasicArmyUnit<T>(int key, UnitValues unitValues, Type dependType) where T : Unit
         {
             var currentCounter = _counters.Last();
             var time = GetActualTime();
+            var isDependTypeFinished = _buildings.Any(x => x.IsFinished(time) && x.GetType() == dependType);
             var hatchWithLarva = _hatcheries.FirstOrDefault(x => x.HasLarvas());
             var neededBuilding =
                 _buildings.FirstOrDefault(x => x.IsFinished(time) && x.GetType() == unitValues.BuildingType);
@@ -350,7 +355,8 @@ namespace MetaBuilder.Core
                 && currentCounter.Gas >= unitValues.Cost.Gas 
                 && currentCounter.Supply + unitValues.Supply <= currentCounter.SupplyLimit 
                 && hatchWithLarva != null
-                && neededBuilding != null)
+                && neededBuilding != null
+                && isDependTypeFinished)
             {
                 currentCounter.Minerals -= unitValues.Cost.Minerals;
                 currentCounter.Gas -= unitValues.Cost.Gas;
