@@ -28,6 +28,7 @@ namespace MetaBuilder.Core
         private List<Building> _buildings;
         private List<Hatchery> _hatcheries;
         private List<Overlord> _overLords;
+        private List<IEnergy> _energies; 
         private double _stepTime;
 
         public int CurrentSupply { get { return _counters.Last().Supply; } }
@@ -35,6 +36,7 @@ namespace MetaBuilder.Core
         public Base(double stepTime)
         {
             InProductions = new Dictionary<int, IProduction>();
+            _energies = new List<IEnergy>();
             _stepTime = stepTime;
             _counters = new List<CounterModel>();
             _units = new List<Unit>();
@@ -87,6 +89,11 @@ namespace MetaBuilder.Core
                 hatchery.Inject(time);
             }
 
+            //energies
+            foreach (var energy in _energies)
+            {
+                energy.CheckEnergy(time);
+            }
 
             var removables = new List<int>();
             foreach (var inProduction in InProductions)
@@ -225,6 +232,7 @@ namespace MetaBuilder.Core
                 hatch.Queen = queen;
             InProductions.Add(key, queen);
             _units.Add(queen);
+            _energies.Add(queen);
             Console.WriteLine("Time: " + (time).ToMinuteString() + ", " + UnitSettings.Queen.Name + " started");
             return true;
         }
@@ -256,7 +264,7 @@ namespace MetaBuilder.Core
             if (currentCounter.Minerals >= BuildingSettings.SpawningPool.Cost.Minerals && hatch != null)
             {
                 currentCounter.Minerals -= BuildingSettings.SpawningPool.Cost.Minerals;
-                var drone = hatch.RemoveMineralDrone();
+                var drone = hatch.RemoveMineralDrone(time);
                 _units.Remove(drone);
                 var hatchIndex = _hatcheries.IndexOf(hatch);
                 var extractor = new Extractor(time);

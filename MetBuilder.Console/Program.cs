@@ -21,6 +21,9 @@ namespace MetBuilder.Console
          * Roaches - done
          * Tune in
          * Banes
+         * queen energy
+         * Queen not fixed on base
+         * queen walk between hatches
          * rally drones to natural
          * Lair
          * extractortrick

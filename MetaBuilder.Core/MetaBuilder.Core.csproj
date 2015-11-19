@@ -47,6 +47,7 @@
     <Compile Include="Buildings\Zerg\SpawningPool.cs" />
     <Compile Include="Buildings\Zerg\Upgrade.cs" />
     <Compile Include="Enum\Percentage.cs" />
+    <Compile Include="Interfaces\IEnergy.cs" />
     <Compile Include="Models\IProduction.cs" />
     <Compile Include="Models\UpgradeValues.cs" />
     <Compile Include="Settings.cs" />
