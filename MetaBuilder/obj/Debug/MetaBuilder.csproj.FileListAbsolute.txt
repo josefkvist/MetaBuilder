@@ -1,0 +1,13 @@
+c:\users\josef_000\documents\visual studio 2013\Projects\MetaBuilder\MetaBuilder\bin\Debug\MetaBuilder.exe.config
+c:\users\josef_000\documents\visual studio 2013\Projects\MetaBuilder\MetaBuilder\bin\Debug\MetaBuilder.exe
+c:\users\josef_000\documents\visual studio 2013\Projects\MetaBuilder\MetaBuilder\bin\Debug\MetaBuilder.pdb
+c:\users\josef_000\documents\visual studio 2013\Projects\MetaBuilder\MetaBuilder\obj\Debug\MetaBuilder.csprojResolveAssemblyReference.cache
+c:\users\josef_000\documents\visual studio 2013\Projects\MetaBuilder\MetaBuilder\obj\Debug\MainWindow.baml
+c:\users\josef_000\documents\visual studio 2013\Projects\MetaBuilder\MetaBuilder\obj\Debug\MainWindow.g.cs
+c:\users\josef_000\documents\visual studio 2013\Projects\MetaBuilder\MetaBuilder\obj\Debug\App.g.cs
+c:\users\josef_000\documents\visual studio 2013\Projects\MetaBuilder\MetaBuilder\obj\Debug\MetaBuilder_MarkupCompile.cache
+c:\users\josef_000\documents\visual studio 2013\Projects\MetaBuilder\MetaBuilder\obj\Debug\MetaBuilder.g.resources
+c:\users\josef_000\documents\visual studio 2013\Projects\MetaBuilder\MetaBuilder\obj\Debug\MetaBuilder.Properties.Resources.resources
+c:\users\josef_000\documents\visual studio 2013\Projects\MetaBuilder\MetaBuilder\obj\Debug\MetaBuilder.csproj.GenerateResource.Cache
+c:\users\josef_000\documents\visual studio 2013\Projects\MetaBuilder\MetaBuilder\obj\Debug\MetaBuilder.exe
+c:\users\josef_000\documents\visual studio 2013\Projects\MetaBuilder\MetaBuilder\obj\Debug\MetaBuilder.pdb

@@ -1,0 +1,17 @@
+﻿using BuildOrder.Interface;
+using MetaBuilder.Core;
+using MetaBuilder.Core.Worker;
+
+namespace BuildOrder.Order.Upgrades
+{
+    public class Melee1Order : IOrder
+    {
+        public bool TryDoOrder(ref Base zerg, int key)
+        {
+            return zerg.TryUpgrade(key, UpgradeSettings.Melee1);
+        }
+
+        public bool IsDone { get; set; }
+
+    }
+}
