@@ -8,9 +8,9 @@ namespace BuildOrder.Order.Units
 {
     public class RoachOrder : IOrder
     {
-        public bool TryDoOrder(ref Base zerg, int key)
+        public bool TryDoOrder(ref Base zerg)
         {
-            return zerg.TryBuildBasicArmyUnit<Roach>(key, UnitSettings.Roach, typeof(RoachWaren));
+            return zerg.TryBuildBasicArmyUnit<Roach>(KeyGenerator.GetKey, UnitSettings.Roach, typeof(RoachWaren));
         }
 
         public bool IsDone { get; set; }

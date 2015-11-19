@@ -6,9 +6,9 @@ namespace BuildOrder.Order.Upgrades
 {
     public class Melee1Order : IOrder
     {
-        public bool TryDoOrder(ref Base zerg, int key)
+        public bool TryDoOrder(ref Base zerg)
         {
-            return zerg.TryUpgrade(key, UpgradeSettings.Melee1);
+            return zerg.TryUpgrade(KeyGenerator.GetKey, UpgradeSettings.Melee1);
         }
 
         public bool IsDone { get; set; }

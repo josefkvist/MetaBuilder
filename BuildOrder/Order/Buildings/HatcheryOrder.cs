@@ -18,8 +18,9 @@ namespace BuildOrder.Order.Buildings
             _moveOutMinerals = moveOutMinerals;
         }
 
-        public bool TryDoOrder(ref Base zerg, int key)
+        public bool TryDoOrder(ref Base zerg)
         {
+            var key = KeyGenerator.GetKey;
             var counter = zerg.Counters.Last();
             var actualTime = Math.Round((zerg.Counters.Count - 1)*Settings.TimeStep, 3);
             if (_waitingForKey == 0 &&

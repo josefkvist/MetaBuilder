@@ -98,15 +98,10 @@ namespace MetBuilder.Console
 
                 if (buildOrder != null)
                 {
-                    buildOrder.IsDone = buildOrder.TryDoOrder(ref zerg, GetKey());
+                    buildOrder.IsDone = buildOrder.TryDoOrder(ref zerg);
                 }
             }
         }
 
-        private static int GetKey()
-        {
-            _currentKey++;
-            return _currentKey;
-        }
     }
 }

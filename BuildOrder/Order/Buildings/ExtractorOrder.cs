@@ -6,9 +6,9 @@ namespace BuildOrder.Order.Buildings
 {
     public class ExtractorOrder : IOrder
     {
-        public bool TryDoOrder(ref Base zerg, int key)
+        public bool TryDoOrder(ref Base zerg)
         {
-            return zerg.TryBuildExtractor(key);
+            return zerg.TryBuildExtractor(KeyGenerator.GetKey);
         }
 
         public bool IsDone { get; set; }

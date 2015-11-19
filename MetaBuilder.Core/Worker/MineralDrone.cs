@@ -19,6 +19,11 @@ namespace MetaBuilder.Core.Worker
             _startedAt = Math.Round(createdAt,3) + UnitSettings.Drone.BuildTime;
         }
 
+        public static MineralDrone MoveDrone(double moved, double timeBetweenHatcheries)
+        {
+            return new MineralDrone(moved - UnitSettings.Drone.BuildTime + timeBetweenHatcheries);
+        }
+
         public bool HasFinishedMining(double time, int noOfDrones)
         {
             var timePerTurn = noOfDrones > 2 ? _timePerTurnWhenThree * (noOfDrones/3.0) : _timePerTurn;

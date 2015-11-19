@@ -6,9 +6,9 @@ namespace BuildOrder.Order.Upgrades
 {
     public class Range1Order : IOrder
     {
-        public bool TryDoOrder(ref Base zerg, int key)
+        public bool TryDoOrder(ref Base zerg)
         {
-            return zerg.TryUpgrade(key, UpgradeSettings.Range1);
+            return zerg.TryUpgrade(KeyGenerator.GetKey, UpgradeSettings.Range1);
         }
 
         public bool IsDone { get; set; }

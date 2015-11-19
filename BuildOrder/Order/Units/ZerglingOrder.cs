@@ -8,9 +8,9 @@ namespace BuildOrder.Order.Units
 {
     public class ZerglingOrder : IOrder
     {
-        public bool TryDoOrder(ref Base zerg, int key)
+        public bool TryDoOrder(ref Base zerg)
         {
-            return zerg.TryBuildBasicArmyUnit<Zergling>(key, UnitSettings.Ling, typeof(SpawningPool));
+            return zerg.TryBuildBasicArmyUnit<Zergling>(KeyGenerator.GetKey, UnitSettings.Ling, typeof(SpawningPool));
         }
 
         public bool IsDone { get; set; }

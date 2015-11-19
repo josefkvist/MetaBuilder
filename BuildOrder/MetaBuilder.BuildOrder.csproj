@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Interface\IOrder.cs" />
     <Compile Include="Openers.cs" />
+    <Compile Include="Order\Buildings\RoachWarenOrder.cs" />
     <Compile Include="Order\Buildings\ExtractorOrder.cs" />
     <Compile Include="Order\Buildings\HatcheryOrder.cs" />
     <Compile Include="Order\Buildings\BaneNestOrder.cs" />

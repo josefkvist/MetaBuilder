@@ -6,9 +6,9 @@ namespace BuildOrder.Order.Units
 {
     public class QueenOrder : IOrder
     {
-        public bool TryDoOrder(ref Base zerg, int key)
+        public bool TryDoOrder(ref Base zerg)
         {
-            return zerg.TryBuildQueen(key);
+            return zerg.TryBuildQueen(KeyGenerator.GetKey);
         }
 
         public bool IsDone { get; set; }

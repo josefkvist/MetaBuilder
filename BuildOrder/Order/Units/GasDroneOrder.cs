@@ -6,9 +6,9 @@ namespace BuildOrder.Order.Units
 {
     public class GasDroneOrder : IOrder 
     {
-        public bool TryDoOrder(ref Base zerg, int key)
+        public bool TryDoOrder(ref Base zerg)
         {
-            return zerg.TryBuildDrone<GasDrone>(key);
+            return zerg.TryBuildDrone<GasDrone>(KeyGenerator.GetKey);
         }
 
         public bool IsDone { get; set; }

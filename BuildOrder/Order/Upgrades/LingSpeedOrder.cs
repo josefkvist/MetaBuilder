@@ -6,9 +6,9 @@ namespace BuildOrder.Order.Upgrades
 {
     public class LingSpeedOrder : IOrder
     {
-        public bool TryDoOrder(ref Base zerg, int key)
+        public bool TryDoOrder(ref Base zerg)
         {
-            return zerg.TryUpgrade(key, UpgradeSettings.LingSpeed);
+            return zerg.TryUpgrade(KeyGenerator.GetKey, UpgradeSettings.LingSpeed);
         }
 
         public bool IsDone { get; set; }
