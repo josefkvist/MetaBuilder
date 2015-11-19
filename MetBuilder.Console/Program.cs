@@ -58,7 +58,7 @@ namespace MetBuilder.Console
         private static void RunProgram()
         {
             var totalSimulationTime = 241.0;
-            var outputTimeStep = 10.0;
+            var outputTimeStep = 2.0;
             var timeStep = Settings.TimeStep;
             var zerg = new Base(timeStep);
             System.Console.WriteLine("Time: " + (0.0).ToMinuteString() + ", Minerals: " +
@@ -67,21 +67,21 @@ namespace MetBuilder.Console
                                             + ", Supply: " + zerg.Counters.First().Supply
                                             + "/" + zerg.Counters.First().SupplyLimit);
             var buildOrders = new List<IOrder>();
-            buildOrders.AddRange(Openers.BasicOpener());
+            buildOrders.AddRange(Openers.ZvZOpener());
             var indexMax = (int)(totalSimulationTime / Settings.TimeStep);
             for (int i = 1; i < indexMax; i++)
             {
                 zerg.StepForward();
                 var counter = zerg.Counters.Last();
                 var actualTime = i * timeStep;
-                if (actualTime % outputTimeStep < timeStep)
+                if (actualTime.ToMilliSeconds() % outputTimeStep.ToMilliSeconds() < timeStep.ToMilliSeconds())
                 {
                     System.Console.WriteLine("Time: " + (actualTime).ToMinuteString() + ", Minerals: " +
                                              counter.Minerals
                                              + ", Gas: " + counter.Gas
                                              + ", Supply: " + counter.Supply
                                              + "/" + counter.SupplyLimit);
-                    zerg.PrintHatcheriesSaturation();
+                    //zerg.PrintHatcheriesSaturation();
                 }
 
                 var extractor = zerg.InProductions.FirstOrDefault(x => x.Value.Name == BuildingSettings.Extractor.Name);

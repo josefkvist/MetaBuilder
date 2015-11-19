@@ -15,6 +15,7 @@ namespace MetaBuilder.Core.Worker
         private double _timePerTurnWhenThree = 6.5;
         private double _timePerTurnWhenFour = 11;
         private double _startedAt;
+        public double StartedAt { get { return _startedAt; } set { _startedAt = value; } }
 
         public GasDrone(double createdAt) : base(createdAt)
         {
@@ -23,22 +24,37 @@ namespace MetaBuilder.Core.Worker
 
         public bool HasFinishedMining(double time, int noOfDrones)
         {
-            var timePerTurn = 0.0;
-            if (noOfDrones < 3)
-                timePerTurn = _timePerTurn;
-            else if (noOfDrones == 3)
-                timePerTurn = _timePerTurnWhenThree;
-            else
-                timePerTurn = _timePerTurnWhenFour * (noOfDrones/4.0);
-    
-            if (time.ToMilliSeconds() < _startedAt.ToMilliSeconds() + timePerTurn.ToMilliSeconds()) return false;
-            var timeLeftTilReturn = timePerTurn.ToMilliSeconds() - (time.ToMilliSeconds() - _startedAt.ToMilliSeconds()) % timePerTurn.ToMilliSeconds();
+            var timePerTurn = TimePerTurn(noOfDrones);
+
+            var timeLeftTilReturn = TimeLeftTilReturn(time, noOfDrones);
+            if (timeLeftTilReturn < 0) return false;
             if (timePerTurn.ToMilliSeconds() - timeLeftTilReturn < Settings.TimeStep.ToMilliSeconds())
                 return true;
         
             return false;
         }
 
+        public double TimeLeftTilReturn(double time, int noOfDrones)
+        {
+            var timePerTurn = TimePerTurn(noOfDrones);
+
+            if (time.ToMilliSeconds() < _startedAt.ToMilliSeconds() + timePerTurn.ToMilliSeconds()) return -1.0;
+            return timePerTurn.ToMilliSeconds() - (time.ToMilliSeconds() - _startedAt.ToMilliSeconds()) % timePerTurn.ToMilliSeconds();
+           
+        }
+
+        public double TimePerTurn(int noOfDrones)
+        {
+            var timePerTurn = 0.0;
+            if (noOfDrones < 3)
+                timePerTurn = _timePerTurn;
+            else if (noOfDrones == 3)
+                timePerTurn = _timePerTurnWhenThree;
+            else
+                timePerTurn = _timePerTurnWhenFour * (noOfDrones / 4.0);
+
+            return timePerTurn;
+        }
      
     }
 }

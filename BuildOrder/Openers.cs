@@ -75,5 +75,32 @@ namespace BuildOrder
 
             };
         }
+        public static List<IOrder> ZvZOpener()
+        {
+            return new List<IOrder>()
+            {
+                new MineralDroneOrder(),
+                new OverlordOrder(),
+                new MineralDroneOrder(),
+                new MineralDroneOrder(),
+                new MineralDroneOrder(),
+                new MineralDroneOrder(),
+                new HatcheryOrder(250),
+                new MineralDroneOrder(),
+                new SpawningPoolOrder(190),
+                new ExtractorOrder(),
+                new MineralDroneOrder(),
+                new MineralDroneOrder(),
+                new QueenOrder(),
+                new BaneNestOrder(90, 50),
+                new MineralDroneOrder(),
+                new MineralDroneOrder(),
+                new OverlordOrder(),
+                new LingSpeedOrder(),
+                new QueenOrder(),
+                new ZerglingOrder(),
+
+            };
+        }
     }
 }

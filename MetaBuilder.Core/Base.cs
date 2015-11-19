@@ -185,7 +185,7 @@ namespace MetaBuilder.Core
                 else if (typeof (T) == typeof (GasDrone))
                 {
                     var drone = new GasDrone(time);
-                    hatchWithLarva.AddGasDrone(drone);
+                    hatchWithLarva.AddGasDrone(drone, time);
                     InProductions.Add(key, drone);
                     _units.Add(drone);
                 }
@@ -262,7 +262,7 @@ namespace MetaBuilder.Core
             var hatch = _buildings.FirstOrDefault(x => x.IsIdle(time) && x.GetType() == typeof(Hatchery)) as Hatchery;
             var poolIsFinished = _buildings.Any(x => x.IsFinished(time) && x.GetType() == typeof (SpawningPool));
             if (hatch == null) return false;
-            if (currentCounter.Minerals < UnitSettings.Queen.Cost.Minerals && poolIsFinished)
+            if (currentCounter.Minerals < UnitSettings.Queen.Cost.Minerals || !poolIsFinished)
                 return false;
             if (hatch.SwitchIdle()) return false;
             currentCounter.Minerals -= UnitSettings.Queen.Cost.Minerals;
@@ -331,7 +331,7 @@ namespace MetaBuilder.Core
 
                     var newDrone = new GasDrone(drone.Created);
                     _units.Add(newDrone);
-                    toHatch.AddGasDrone(newDrone);
+                    toHatch.AddGasDrone(newDrone, GetActualTime());
                     return true;
                 }
                 else if (fromType == typeof (GasDrone) && toType == typeof (MineralDrone))

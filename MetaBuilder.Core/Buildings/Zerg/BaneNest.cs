@@ -15,7 +15,7 @@ namespace MetaBuilder.Core.Buildings.Zerg
 
 
         public BaneNest(double createdAt)
-            : base(createdAt, BuildingSettings.RoachWaren.BuildTime, BuildingSettings.RoachWaren.Name)
+            : base(createdAt, BuildingSettings.BaneNest.BuildTime, BuildingSettings.BaneNest.Name)
         {
         }
 

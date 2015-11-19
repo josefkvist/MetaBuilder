@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using MetaBuilder.Core.Enum;
 using MetaBuilder.Core.Interfaces;
 using MetaBuilder.Core.Worker;
@@ -19,6 +20,17 @@ namespace MetaBuilder.Core.Buildings.Zerg
             GasDrones = new List<GasDrone>();
         }
 
-       
+
+        public void AddGasDrone(GasDrone gasDrone, double time)
+        {
+            if (GasDrones.Any())
+            {
+                var timePerTurn = gasDrone.TimePerTurn(GasDrones.Count + 1);
+                var distanceBetweenDrones = timePerTurn/(GasDrones.Count + 1);
+
+                gasDrone.StartedAt = GasDrones.Last().StartedAt + distanceBetweenDrones;
+            }
+            GasDrones.Add(gasDrone);
+        }
     }
 }

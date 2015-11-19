@@ -92,16 +92,17 @@ namespace MetaBuilder.Core.Buildings.Zerg
 
             return drone;
         }
-        public void AddGasDrone(GasDrone gasDrone)
+        public void AddGasDrone(GasDrone gasDrone, double time)
         {
             var added = false;
             var noOfDrones = 0;
             while (!added)
             {
-                var extractors = Extractors.FirstOrDefault(x => x.GasDrones.Count == noOfDrones);
-                if (extractors != null)
+                var extractor = Extractors.FirstOrDefault(x => x.GasDrones.Count == noOfDrones);
+                if (extractor != null)
                 {
-                    extractors.GasDrones.Add(gasDrone);
+                    extractor.AddGasDrone(gasDrone, time);
+                    
                     added = true;
                 }
                 noOfDrones++;
