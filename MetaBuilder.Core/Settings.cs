@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MetaBuilder.Core.Buildings.Zerg;
 using MetaBuilder.Core.Models;
+using MetaBuilder.Core.Units.Zerg;
 
 namespace MetaBuilder.Core
 {
@@ -33,6 +34,7 @@ namespace MetaBuilder.Core
         public static UnitValues Queen = new UnitValues(2, 150, 0, 36, "Queen", typeof(Hatchery));
         public static UnitValues Ling = new UnitValues(0.5, 50, 0, 17, "Zergling", typeof(SpawningPool));
         public static UnitValues Roach = new UnitValues(2, 75, 25, 20, "Roach", typeof(RoachWaren));
+        public static UnitValues Bane = new UnitValues(0.5, 15, 25, 20, "Baneling", typeof(BaneNest), typeof(Zergling));
     }
 
     public class UpgradeSettings

@@ -62,6 +62,7 @@
     <Compile Include="Interfaces\Unit.cs" />
     <Compile Include="Models\UnitValues.cs" />
     <Compile Include="Resources\MineralPatch.cs" />
+    <Compile Include="Units\Zerg\Baneling.cs" />
     <Compile Include="Units\Zerg\Overlord.cs" />
     <Compile Include="Units\Zerg\Queen.cs" />
     <Compile Include="Units\Zerg\Roach.cs" />

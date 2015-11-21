@@ -10,7 +10,7 @@ namespace BuildOrder.Order.Units
     {
         public bool TryDoOrder(ref Base zerg)
         {
-            return zerg.TryBuildBasicArmyUnit<Roach>(KeyGenerator.GetKey, UnitSettings.Roach, typeof(RoachWaren));
+            return zerg.TryBuildBasicArmyUnit<Roach>(KeyGenerator.GetKey, UnitSettings.Roach);
         }
 
         public bool IsDone { get; set; }

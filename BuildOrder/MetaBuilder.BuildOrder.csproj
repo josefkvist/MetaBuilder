@@ -46,6 +46,7 @@
     <Compile Include="Order\Buildings\HatcheryOrder.cs" />
     <Compile Include="Order\Buildings\BaneNestOrder.cs" />
     <Compile Include="Order\Buildings\SpawningPoolOrder.cs" />
+    <Compile Include="Order\Units\BanelingOrder.cs" />
     <Compile Include="Order\Units\GasDroneOrder.cs" />
     <Compile Include="Order\Units\MineralDroneOrder.cs" />
     <Compile Include="Order\Units\OverlordOrder.cs" />

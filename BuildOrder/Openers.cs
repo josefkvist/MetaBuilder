@@ -94,11 +94,17 @@ namespace BuildOrder
                 new QueenOrder(),
                 new BaneNestOrder(90, 50),
                 new MineralDroneOrder(),
-                new MineralDroneOrder(),
                 new OverlordOrder(),
-                new LingSpeedOrder(),
-                new QueenOrder(),
+                new OverlordOrder(),
+                new MineralDroneOrder(),
+                new MineralDroneOrder(),
+                new MineralDroneOrder(),
+                new MineralDroneOrder(),
+                new MineralDroneOrder(),
                 new ZerglingOrder(),
+                new BanelingOrder(),
+                new MineralDroneOrder(),
+                new LingSpeedOrder(),
 
             };
         }

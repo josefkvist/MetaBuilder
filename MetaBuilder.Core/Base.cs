@@ -390,11 +390,10 @@ namespace MetaBuilder.Core
             return true;
         }
 
-        public bool TryBuildBasicArmyUnit<T>(int key, UnitValues unitValues, Type dependType) where T : Unit
+        public bool TryBuildBasicArmyUnit<T>(int key, UnitValues unitValues) where T : Unit
         {
             var currentCounter = _counters.Last();
             var time = GetActualTime();
-            var isDependTypeFinished = _buildings.Any(x => x.IsFinished(time) && x.GetType() == dependType);
             var hatchWithLarva = _hatcheries.FirstOrDefault(x => x.HasLarvas());
             var neededBuilding =
                 _buildings.FirstOrDefault(x => x.IsFinished(time) && x.GetType() == unitValues.BuildingType);
@@ -402,8 +401,7 @@ namespace MetaBuilder.Core
                 && currentCounter.Gas >= unitValues.Cost.Gas 
                 && currentCounter.Supply + unitValues.Supply <= currentCounter.SupplyLimit 
                 && hatchWithLarva != null
-                && neededBuilding != null
-                && isDependTypeFinished)
+                && neededBuilding != null)
             {
                 currentCounter.Supply += unitValues.Supply;
                 currentCounter.Minerals -= unitValues.Cost.Minerals;
@@ -420,6 +418,35 @@ namespace MetaBuilder.Core
                 Console.WriteLine("Time: " + (time).ToMinuteString() + ", "+ unitValues.Name +" started");
                 return true;
             }
+            return false;
+        }
+
+        public bool TryBuildAdvancedArmyUnit<T>(int key, UnitValues unitValues) where T : Unit
+        {
+            
+            var currentCounter = _counters.Last();
+            var time = GetActualTime();
+            var builtFromUnit = _units.FirstOrDefault(x => x.IsFinished(time) && x.GetType() == unitValues.BuiltFromUnit);
+            var isDependBuildingFinsihed =
+                _buildings.Any(x => x.IsFinished(time) && x.GetType() == unitValues.BuildingType);
+            if (currentCounter.Minerals >= unitValues.Cost.Minerals
+                && currentCounter.Gas >= unitValues.Cost.Gas
+                && currentCounter.Supply + unitValues.ExtraSupply <= currentCounter.SupplyLimit
+                && builtFromUnit != null
+                && isDependBuildingFinsihed)
+            {
+                currentCounter.Supply += unitValues.ExtraSupply;
+                currentCounter.Minerals -= unitValues.Cost.Minerals;
+                currentCounter.Gas -= unitValues.Cost.Gas;
+                _units.Remove(builtFromUnit);
+                var newUnit = (T)Activator.CreateInstance(typeof(T), time);
+                _units.Add(newUnit);
+                InProductions.Add(key, newUnit);
+                Console.WriteLine("Time: " + (time).ToMinuteString() + ", " + unitValues.Name + " started");
+                return true;
+            }
+
+
             return false;
         }
 
