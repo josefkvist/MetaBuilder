@@ -22,9 +22,9 @@ namespace MetBuilder.Console
          * queen energy - done
          * bane nest - done
          * rally drones to natural - done
+         * Banes -done
 
          * * Tune in
-         * Banes
          * Queen not fixed on base
          * queen walk between hatches
          * Lair
