@@ -41,11 +41,13 @@
   <ItemGroup>
     <Compile Include="Interface\IOrder.cs" />
     <Compile Include="Openers.cs" />
+    <Compile Include="Order\Buildings\EvoChamberOrder.cs" />
     <Compile Include="Order\Buildings\RoachWarenOrder.cs" />
     <Compile Include="Order\Buildings\ExtractorOrder.cs" />
     <Compile Include="Order\Buildings\HatcheryOrder.cs" />
     <Compile Include="Order\Buildings\BaneNestOrder.cs" />
     <Compile Include="Order\Buildings\SpawningPoolOrder.cs" />
+    <Compile Include="Order\Units\RavegerOrder.cs" />
     <Compile Include="Order\Units\BanelingOrder.cs" />
     <Compile Include="Order\Units\GasDroneOrder.cs" />
     <Compile Include="Order\Units\MineralDroneOrder.cs" />

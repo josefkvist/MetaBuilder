@@ -49,7 +49,7 @@ namespace MetaBuilder.Core
             for (int i = 0; i < 12; i++)
             {
                 //var drone = new MineralDrone(-Drone.UnitValues.BuildTime);
-                var drone = new MineralDrone(0.3 * i - UnitSettings.Drone.BuildTime);
+                var drone = new MineralDrone(0.2 * i - UnitSettings.Drone.BuildTime);
                 mainHatch.AddMineralDrone(drone);
                 _units.Add(drone);
 
@@ -78,14 +78,15 @@ namespace MetaBuilder.Core
 
         private void EvenOutWorkers(double time)
         {
-            if (!_hatcheries.Any(x=>x.NoOfMineralDrones() > 16)) return;
+            if (!_hatcheries.Any(x=>x.NoOfMineralDrones(time) > 16)) return;
 
             for (int i = 0; i < _hatcheries.Count; i++)
             {
-                if (_hatcheries[i].NoOfMineralDrones() > 16 
+                if (_hatcheries[i].NoOfMineralDrones(time) > 16 
                     && i + 1 <_hatcheries.Count)
                 {
-                    TryChangeDronesWork(i, i + 1, typeof (MineralDrone), typeof (MineralDrone), KeyGenerator.GetKey);
+                    if (TryChangeDronesWork(i, i + 1, typeof (MineralDrone), typeof (MineralDrone), KeyGenerator.GetKey))
+                        PrintHatcheriesSaturation();
                 }
                 
             }
@@ -95,7 +96,10 @@ namespace MetaBuilder.Core
         {
             var supply = (from unit in _units
                 select unit.Supply).Sum();
-
+            if (supply > 40)
+            {
+                var hej = "";
+            }
             var supplyHatch = (from hatch in _hatcheries.Where(x => x.IsFinished(time)) select hatch.Supply).Sum();
             var supplyOl = (from ol in _overLords.Where(x => x.IsFinished(time)) select ol.Supply).Sum();
             currentCounter.SupplyLimit = supplyOl + supplyHatch;
@@ -138,15 +142,29 @@ namespace MetaBuilder.Core
         private CounterModel StepForHatcheries(double time)
         {
             var currentCounter = new CounterModel(_counters.Last());
+
+            if (_hatcheries.Count == 2)
+            {
+                var hej = "";
+            }
             foreach (var hatchery in _hatcheries)
             {
-                foreach (var mineralPatch in hatchery.MineralPatches)
+                for (int i = 0; i < hatchery.MineralPatches.Count; i++)
                 {
+                    var mineralPatch = hatchery.MineralPatches[i];
                     var mineralDrones = mineralPatch.MineralDrones.Where(x => x.IsFinished(time)).ToList();
-                    foreach (var mineralDrone in mineralDrones)
+                    for (int j = 0; j < mineralDrones.Count; j++)
                     {
+                        var mineralDrone = mineralDrones[j];
                         if (mineralDrone.HasFinishedMining(time, mineralDrones.Count))
+                        {
                             currentCounter.Minerals += hatchery.MineralsPerDrone;
+                            if (time >51)
+                            {
+                                //Console.WriteLine(string.Format("drone finished mining {0} {1} ",i, j));                            
+                                
+                            }
+                        }
                     }
                 }
                 foreach (var extractor in hatchery.Extractors)
@@ -160,6 +178,8 @@ namespace MetaBuilder.Core
                 hatchery.TickTock(time);
                 hatchery.Inject(time);
             }
+            currentCounter.Larvas = (from hatchery in _hatcheries select hatchery.NoOfLarvas).Sum();
+
             return currentCounter;
         }
 
@@ -282,7 +302,7 @@ namespace MetaBuilder.Core
             var time = GetActualTime();
             if (currentCounter.Minerals >= BuildingSettings.Hatchery.Cost.Minerals)
             {
-                currentCounter.Minerals -= BuildingSettings.SpawningPool.Cost.Minerals;
+                currentCounter.Minerals -= BuildingSettings.Hatchery.Cost.Minerals;
                 _units.Remove(drone);
                 var hatch = new Hatchery(time, false);
                 _buildings.Add(hatch);
@@ -300,9 +320,9 @@ namespace MetaBuilder.Core
             var currentCounter = _counters.Last();
             var time = (_counters.Count - 1) * _stepTime;
             var hatch = _hatcheries.FirstOrDefault(x=>x.Extractors.Count < 2);
-            if (currentCounter.Minerals >= BuildingSettings.SpawningPool.Cost.Minerals && hatch != null)
+            if (currentCounter.Minerals >= BuildingSettings.Extractor.Cost.Minerals && hatch != null)
             {
-                currentCounter.Minerals -= BuildingSettings.SpawningPool.Cost.Minerals;
+                currentCounter.Minerals -= BuildingSettings.Extractor.Cost.Minerals;
                 var drone = hatch.RemoveMineralDrone(time);
                 _units.Remove(drone);
                 var hatchIndex = _hatcheries.IndexOf(hatch);
@@ -327,8 +347,8 @@ namespace MetaBuilder.Core
                 if (fromType == typeof (MineralDrone) && toType == typeof(GasDrone))
                 {
                     var drone = fromHatch.RemoveMineralDrone(GetActualTime());
-                    _units.Remove(drone);
-
+                    var success =_units.Remove(drone);
+                    if (!success) throw new Exception("unit wasn't removed");
                     var newDrone = new GasDrone(drone.Created);
                     _units.Add(newDrone);
                     toHatch.AddGasDrone(newDrone, GetActualTime());
@@ -337,8 +357,8 @@ namespace MetaBuilder.Core
                 else if (fromType == typeof (GasDrone) && toType == typeof (MineralDrone))
                 {
                     var drone = fromHatch.RemoveGasDrone(GetActualTime());
-                    _units.Remove(drone);
-
+                    var success = _units.Remove(drone);
+                    if (!success) throw new Exception("unit wasn't removed");
                     var newDrone = new MineralDrone(drone.Created);
                     _units.Add(newDrone);
                     toHatch.AddMineralDrone(newDrone);
@@ -350,8 +370,8 @@ namespace MetaBuilder.Core
                 if (fromType == typeof (MineralDrone) && toType == typeof(MineralDrone))
                 {
                     var drone = fromHatch.RemoveMineralDrone(GetActualTime());
-                    _units.Remove(drone);
-
+                    var success = _units.Remove(drone);
+                    if (!success) throw new Exception("unit wasn't removed");
                     var newDrone = MineralDrone.MoveDrone(GetActualTime(), Settings.TimeBetweenHatcheries);
                     _units.Add(newDrone);
                     toHatch.AddMineralDrone(newDrone);
@@ -459,7 +479,7 @@ namespace MetaBuilder.Core
         {
             for (int i = 0; i < _hatcheries.Count; i++)
             {
-                Console.WriteLine("Hatchery " + i + ", " + _hatcheries[i].NoOfMineralDrones() + " on minerals, " + _hatcheries[i].NoOfGasDrones() + " on gas."  );
+                Console.WriteLine("Hatchery " + i + ", " + _hatcheries[i].NoOfMineralDrones(GetActualTime()) + " on minerals, " + _hatcheries[i].NoOfGasDrones() + " on gas."  );
             }
         }
 

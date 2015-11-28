@@ -57,7 +57,7 @@ namespace MetBuilder.Console
 
         private static void RunProgram()
         {
-            var totalSimulationTime = 241.0;
+            var totalSimulationTime = 300.0;
             var outputTimeStep = 2.0;
             var timeStep = Settings.TimeStep;
             var zerg = new Base(timeStep);
@@ -65,9 +65,10 @@ namespace MetBuilder.Console
                                             zerg.Counters.First().Minerals
                                             + ", Gas: " + zerg.Counters.First().Gas
                                             + ", Supply: " + zerg.Counters.First().Supply
-                                            + "/" + zerg.Counters.First().SupplyLimit);
+                                            + "/" + zerg.Counters.First().SupplyLimit
+                                            + ", Larvas: " + zerg.Counters.First().Larvas);
             var buildOrders = new List<IOrder>();
-            buildOrders.AddRange(Openers.ZvZOpener());
+            buildOrders.AddRange(Openers.ZvZSafeRoachOpener());
             var indexMax = (int)(totalSimulationTime / Settings.TimeStep);
             for (int i = 1; i < indexMax; i++)
             {
@@ -80,8 +81,8 @@ namespace MetBuilder.Console
                                              counter.Minerals
                                              + ", Gas: " + counter.Gas
                                              + ", Supply: " + counter.Supply
-                                             + "/" + counter.SupplyLimit);
-                    //zerg.PrintHatcheriesSaturation();
+                                             + "/" + counter.SupplyLimit
+                                             + ", Larvas: " + counter.Larvas);
                 }
 
                 var extractor = zerg.InProductions.FirstOrDefault(x => x.Value.Name == BuildingSettings.Extractor.Name);

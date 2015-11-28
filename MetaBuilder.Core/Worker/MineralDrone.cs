@@ -10,7 +10,7 @@ namespace MetaBuilder.Core.Worker
 {
     public class MineralDrone : Drone, IWorker
     {
-        private double _timePerTurn = 5.6;
+        private double _timePerTurn = 5.4;
         private double _timePerTurnWhenThree = 7.5;
         private double _startedAt;
 
@@ -26,9 +26,10 @@ namespace MetaBuilder.Core.Worker
 
         public bool HasFinishedMining(double time, int noOfDrones)
         {
+            var roundedTime = Math.Round(time, 2);
             var timePerTurn = noOfDrones > 2 ? _timePerTurnWhenThree * (noOfDrones/3.0) : _timePerTurn;
-            if (time.ToMilliSeconds() < _startedAt.ToMilliSeconds() + timePerTurn.ToMilliSeconds()) return false;
-            var timeLeftTilReturn = timePerTurn.ToMilliSeconds() - (time.ToMilliSeconds() - _startedAt.ToMilliSeconds()) % timePerTurn.ToMilliSeconds();
+            if (roundedTime.ToMilliSeconds() < _startedAt.ToMilliSeconds() + timePerTurn.ToMilliSeconds()) return false;
+            var timeLeftTilReturn = timePerTurn.ToMilliSeconds() - (roundedTime.ToMilliSeconds() - Math.Round(_startedAt,2).ToMilliSeconds()) % timePerTurn.ToMilliSeconds();
             if (timePerTurn.ToMilliSeconds() - timeLeftTilReturn < Settings.TimeStep.ToMilliSeconds())
                 return true;
         

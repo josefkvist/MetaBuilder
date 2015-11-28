@@ -20,5 +20,6 @@ namespace MetaBuilder.Core.Models
         public int Gas { get; set; }
         public double Supply { get; set; }
         public int SupplyLimit { get; set; }
+        public int Larvas { get; set; }
     }
 }

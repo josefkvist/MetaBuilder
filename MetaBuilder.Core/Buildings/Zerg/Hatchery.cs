@@ -22,9 +22,9 @@ namespace MetaBuilder.Core.Buildings.Zerg
         private double _lastInject;
         private bool _isInjected;
         private double _injectTimeToLarva = 29;
-        private double _naturalLarvaTimer = 12.0;
+        private double _naturalLarvaTimer = 11.0;
         public Queen Queen { get; set; }
-
+        public int NoOfLarvas { get { return _injectedLarvas + _naturalLarvas; } }
         public List<MineralPatch> MineralPatches { get; set; }
         public int MineralsPerDrone { get; private set; }
         public List<Extractor> Extractors { get; set; }
@@ -85,7 +85,7 @@ namespace MetaBuilder.Core.Buildings.Zerg
 
         public MineralDrone RemoveMineralDrone(double time)
         {
-            var patch = MineralPatches.OrderByDescending(x => x.MineralDrones.Count).FirstOrDefault();
+            var patch = MineralPatches.OrderByDescending(x => x.MineralDrones.Where(o=>o.IsFinished(time)).Count()).FirstOrDefault();
             if (patch == null) return null;
             var drone = patch.MineralDrones.FirstOrDefault(d=>d.IsFinished(time));
             patch.MineralDrones.Remove(drone);
@@ -119,12 +119,12 @@ namespace MetaBuilder.Core.Buildings.Zerg
             return drone;
         }
 
-        public int NoOfMineralDrones()
+        public int NoOfMineralDrones(double time)
         {
             var sum = 0;
             foreach (var mineralPatch in MineralPatches)
             {
-                sum += mineralPatch.MineralDrones.Count;
+                sum += mineralPatch.MineralDrones.Where(x=>x.IsFinished(time)).Count();
             }
             return sum;
         }
