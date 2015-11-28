@@ -33,16 +33,16 @@ namespace MetaBuilder.Core
         public static UnitValues Overlord = new UnitValues(0, 100, 0, 18, "Overlord", typeof(Hatchery));
         public static UnitValues Queen = new UnitValues(2, 150, 0, 36, "Queen", typeof(Hatchery));
         public static UnitValues Ling = new UnitValues(0.5, 50, 0, 17, "Zergling", typeof(SpawningPool));
-        public static UnitValues Roach = new UnitValues(2, 75, 25, 20, "Roach", typeof(RoachWaren));
-        public static UnitValues Bane = new UnitValues(0.5, 15, 25, 20, "Baneling", typeof(BaneNest), typeof(Zergling));
-        public static UnitValues Raveger = new UnitValues(3, 25, 75, 20, "Raveger", typeof(RoachWaren), typeof(Roach),1);
+        public static UnitValues Roach = new UnitValues(2, 75, 25, 19, "Roach", typeof(RoachWaren));
+        public static UnitValues Bane = new UnitValues(0.5, 15, 25, 14, "Baneling", typeof(BaneNest), typeof(Zergling));
+        public static UnitValues Raveger = new UnitValues(3, 25, 75, 9, "Raveger", typeof(RoachWaren), typeof(Roach),1);
     }
 
     public class UpgradeSettings
     {
         public static UpgradeValues LingSpeed = new UpgradeValues("Ling Speed", 79, 100, 100, typeof (SpawningPool));
-        public static UpgradeValues Melee1 = new UpgradeValues("Melee 1", 115, 100, 100, typeof (EvolutionChamber));
-        public static UpgradeValues Range1 = new UpgradeValues("Range 1", 115, 100, 100, typeof (EvolutionChamber));
+        public static UpgradeValues Melee1 = new UpgradeValues("Melee 1", 114, 100, 100, typeof (EvolutionChamber));
+        public static UpgradeValues Range1 = new UpgradeValues("Range 1", 114, 100, 100, typeof (EvolutionChamber));
     }
 
 }

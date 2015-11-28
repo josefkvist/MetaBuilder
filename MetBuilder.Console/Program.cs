@@ -57,7 +57,7 @@ namespace MetBuilder.Console
 
         private static void RunProgram()
         {
-            var totalSimulationTime = 300.0;
+            var totalSimulationTime = 380.0;
             var outputTimeStep = 2.0;
             var timeStep = Settings.TimeStep;
             var zerg = new Base(timeStep);
