@@ -8,6 +8,7 @@ using MetaBuilder.Core.Buildings.Zerg;
 using MetaBuilder.Core.Enum;
 using MetaBuilder.Core.Settings;
 using MetaBuilder.Core.Worker;
+using MetaBuilder.Core.Worker.Zerg;
 
 namespace MetBuilder.Console
 {

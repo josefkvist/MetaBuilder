@@ -4,6 +4,7 @@ using MetaBuilder.Core.Enum;
 using MetaBuilder.Core.Interfaces;
 using MetaBuilder.Core.Settings;
 using MetaBuilder.Core.Worker;
+using MetaBuilder.Core.Worker.Zerg;
 
 namespace MetaBuilder.Core.Buildings.Zerg
 {

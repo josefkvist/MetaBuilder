@@ -7,6 +7,7 @@ using MetaBuilder.Core.Models;
 using MetaBuilder.Core.Settings;
 using MetaBuilder.Core.Units.Zerg;
 using MetaBuilder.Core.Worker;
+using MetaBuilder.Core.Worker.Zerg;
 
 namespace MetaBuilder.Core.Bases
 {

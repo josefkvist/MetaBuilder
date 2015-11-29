@@ -11,6 +11,7 @@ using MetaBuilder.Core.Resources;
 using MetaBuilder.Core.Settings;
 using MetaBuilder.Core.Units.Zerg;
 using MetaBuilder.Core.Worker;
+using MetaBuilder.Core.Worker.Zerg;
 
 namespace MetaBuilder.Core.Buildings.Zerg
 {
