@@ -1,7 +1,7 @@
 ﻿using MetaBuilder.Core.Interfaces;
 using MetaBuilder.Core.Settings;
 
-namespace MetaBuilder.Core.Worker
+namespace MetaBuilder.Core.Worker.Zerg
 {
     public class MovingDrone : Unit
     {

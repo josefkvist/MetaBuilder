@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using MetaBuilder.Core.Settings;
 using MetaBuilder.Core.Units.Zerg;
 
-namespace MetaBuilder.Core.Worker
+namespace MetaBuilder.Core.Worker.Zerg
 {
     public class MineralDrone : Drone, IWorker
     {

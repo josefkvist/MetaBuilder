@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-
-namespace MetaBuilder.Core.Worker
+﻿namespace MetaBuilder.Core.Interfaces
 {
     public interface IWorker
     {
