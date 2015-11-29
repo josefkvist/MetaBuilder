@@ -1,36 +1,40 @@
 ﻿using System;
 using System.Linq;
-using BuildOrder.Interface;
 using MetaBuilder.Core;
 using MetaBuilder.Core.Bases;
 using MetaBuilder.Core.Buildings.Zerg;
 using MetaBuilder.Core.Enum;
+using MetaBuilder.Core.Interfaces;
+using MetaBuilder.Core.Models;
 using MetaBuilder.Core.Settings;
 using MetaBuilder.Core.Worker;
 
 namespace BuildOrder.Order.Buildings
 {
-    public class HatcheryOrder : IOrder
+    public abstract class BuildingOrder
     {
-        private int _moveOutMinerals;
+        protected readonly int _moveOutMinerals;
         private int _waitingForKey;
         private MovingDrone _drone;
-        public HatcheryOrder(int moveOutMinerals)
+        private int _moveOutGas;
+
+        protected BuildingOrder(int moveOutMinerals, int moveOutGas = 0)
         {
             _moveOutMinerals = moveOutMinerals;
+            _moveOutGas = moveOutGas;
         }
 
-        public bool TryDoOrder(ref ZergBase zerg)
+        protected bool TryBuild<T>(ref ZergBase zerg, BuildingValues buildingValues, Type dependType) where T : Building
         {
             var key = KeyGenerator.GetKey;
             var counter = zerg.Counters.Last();
             var actualTime = Math.Round((zerg.Counters.Count - 1) * CoreSettings.TimeStep, 3);
-            if (_waitingForKey == 0 &&
-                               counter.Minerals >= _moveOutMinerals)
-            {
-               
-                zerg.MoveOutDrone(key, 0, typeof(MineralDrone), typeof(Hatchery));
 
+            if (_waitingForKey == 0 &&
+      counter.Minerals >= _moveOutMinerals && counter.Gas >= _moveOutGas)
+            {
+
+                zerg.MoveOutDrone(key, 0, typeof(MineralDrone), typeof(T));
                 _waitingForKey = key;
                 _drone = zerg.InProductions[key] as MovingDrone;
             }
@@ -42,14 +46,13 @@ namespace BuildOrder.Order.Buildings
                 if (inProduction == null ||
                     inProduction.PromilleDone(actualTime) == (int)Percentage.P100)
                 {
-                    return zerg.TryBuildHatchery(key, _drone);
+                    System.Console.WriteLine("Time: " + (actualTime).ToMinuteString() +
+                                         ", drone ready to build " + buildingValues.Name);
+                    return zerg.TryBuildBuilding<T>(key, _drone, buildingValues, dependType);
                 }
             }
+
             return false;
         }
-
-        public bool IsDone { get; set; }
-
-      
     }
 }

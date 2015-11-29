@@ -3,8 +3,10 @@ using System.Linq;
 using BuildOrder;
 using BuildOrder.Interface;
 using MetaBuilder.Core;
+using MetaBuilder.Core.Bases;
 using MetaBuilder.Core.Buildings.Zerg;
 using MetaBuilder.Core.Enum;
+using MetaBuilder.Core.Settings;
 using MetaBuilder.Core.Worker;
 
 namespace MetBuilder.Console
@@ -59,8 +61,8 @@ namespace MetBuilder.Console
         {
             var totalSimulationTime = 380.0;
             var outputTimeStep = 2.0;
-            var timeStep = Settings.TimeStep;
-            var zerg = new Base(timeStep);
+            var timeStep = CoreSettings.TimeStep;
+            var zerg = new ZergBase(timeStep);
             System.Console.WriteLine("Time: " + (0.0).ToMinuteString() + ", Minerals: " +
                                             zerg.Counters.First().Minerals
                                             + ", Gas: " + zerg.Counters.First().Gas
@@ -69,7 +71,7 @@ namespace MetBuilder.Console
                                             + ", Larvas: " + zerg.Counters.First().Larvas);
             var buildOrders = new List<IOrder>();
             buildOrders.AddRange(Openers.ZvZSafeRoachOpener());
-            var indexMax = (int)(totalSimulationTime / Settings.TimeStep);
+            var indexMax = (int)(totalSimulationTime / CoreSettings.TimeStep);
             for (int i = 1; i < indexMax; i++)
             {
                 zerg.StepForward();
@@ -85,7 +87,7 @@ namespace MetBuilder.Console
                                              + ", Larvas: " + counter.Larvas);
                 }
 
-                var extractor = zerg.InProductions.FirstOrDefault(x => x.Value.Name == BuildingSettings.Extractor.Name);
+                var extractor = zerg.InProductions.FirstOrDefault(x => x.Value.Name == ZergBuildingSettings.Extractor.Name);
 
                 if (extractor.Value != null && extractor.Value.PromilleDone(actualTime) == (int)Percentage.P100)
                 {

@@ -1,11 +1,12 @@
 ﻿using MetaBuilder.Core.Interfaces;
+using MetaBuilder.Core.Settings;
 
 namespace MetaBuilder.Core.Units.Zerg
 {
     public class Raveger : Unit
     {
         public Raveger(double created)
-            : base(created, UnitSettings.Raveger.BuildTime, UnitSettings.Raveger.Supply, UnitSettings.Raveger.Name)
+            : base(created, ZergUnitSettings.Raveger.BuildTime, ZergUnitSettings.Raveger.Supply, ZergUnitSettings.Raveger.Name)
         {
         }
     }

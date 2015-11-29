@@ -8,6 +8,7 @@ using MetaBuilder.Core.Enum;
 using MetaBuilder.Core.Interfaces;
 using MetaBuilder.Core.Models;
 using MetaBuilder.Core.Resources;
+using MetaBuilder.Core.Settings;
 using MetaBuilder.Core.Units.Zerg;
 using MetaBuilder.Core.Worker;
 
@@ -33,7 +34,7 @@ namespace MetaBuilder.Core.Buildings.Zerg
 
         #region Constructors
         public Hatchery()
-            : base(-BuildingSettings.Hatchery.BuildTime, BuildingSettings.Hatchery.BuildTime, BuildingSettings.Hatchery.Name) 
+            : base(-ZergBuildingSettings.Hatchery.BuildTime, ZergBuildingSettings.Hatchery.BuildTime, ZergBuildingSettings.Hatchery.Name) 
         {
 
             _naturalLarvas = 3;
@@ -45,7 +46,7 @@ namespace MetaBuilder.Core.Buildings.Zerg
         }
 
         public Hatchery(double createTime, bool isGoldExpansion)
-            : base(createTime, BuildingSettings.Hatchery.BuildTime, BuildingSettings.Hatchery.Name)
+            : base(createTime, ZergBuildingSettings.Hatchery.BuildTime, ZergBuildingSettings.Hatchery.Name)
         {
             _naturalLarvas = 1;
             _injectedLarvas = 0;
@@ -167,8 +168,8 @@ namespace MetaBuilder.Core.Buildings.Zerg
 
             var timerLeft = timeSinceBuilt%_naturalLarvaTimer;
 
-            if ( Math.Abs(_naturalLarvaTimer.ToMilliSeconds()-timerLeft.ToMilliSeconds() - _naturalLarvaTimer.ToMilliSeconds()) 
-                < Settings.TimeStep.ToMilliSeconds() 
+            if ( Math.Abs(_naturalLarvaTimer.ToMilliSeconds()-timerLeft.ToMilliSeconds() - _naturalLarvaTimer.ToMilliSeconds())
+                < CoreSettings.TimeStep.ToMilliSeconds() 
                  && _naturalLarvas < 3)
             {
                 _naturalLarvas++;

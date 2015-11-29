@@ -1,22 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MetaBuilder.Core.Buildings.Zerg;
+﻿using MetaBuilder.Core.Buildings.Zerg;
 using MetaBuilder.Core.Models;
 using MetaBuilder.Core.Units.Zerg;
 
-namespace MetaBuilder.Core
+namespace MetaBuilder.Core.Settings
 {
-    public static class Settings
+    public static class ZergSettings
     {
-        public static double TimeStep = 0.1;
         public static double TimeBetweenHatcheries = 10;
         public static double TimeToMoveToBuildingSpot = 2;
     }
 
-    public class BuildingSettings
+    public class ZergBuildingSettings
     {
         public static BuildingValues Hatchery = new BuildingValues(300, 0, 71, "Hatchery");
         public static BuildingValues SpawningPool = new BuildingValues(200, 0, 46, "Spawning pool");
@@ -26,7 +20,7 @@ namespace MetaBuilder.Core
         public static BuildingValues RoachWaren = new BuildingValues(150, 0, 39, "Roach waren");
     }
 
-    public class UnitSettings
+    public class ZergUnitSettings
     {
         //                                  Supply, minerals, gas, time, name, buildingneeded
         public static UnitValues Drone = new UnitValues(1, 50, 0, 14, "Drone", typeof(Hatchery));
@@ -38,7 +32,7 @@ namespace MetaBuilder.Core
         public static UnitValues Raveger = new UnitValues(3, 25, 75, 9, "Raveger", typeof(RoachWaren), typeof(Roach),1);
     }
 
-    public class UpgradeSettings
+    public class ZergUpgradeSettings
     {
         public static UpgradeValues LingSpeed = new UpgradeValues("Ling Speed", 79, 100, 100, typeof (SpawningPool));
         public static UpgradeValues Melee1 = new UpgradeValues("Melee 1", 114, 100, 100, typeof (EvolutionChamber));

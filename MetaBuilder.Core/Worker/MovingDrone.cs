@@ -1,11 +1,12 @@
 ﻿using MetaBuilder.Core.Interfaces;
+using MetaBuilder.Core.Settings;
 
 namespace MetaBuilder.Core.Worker
 {
     public class MovingDrone : Unit
     {
         public MovingDrone(double created, double movingTime) 
-            : base(created, movingTime, UnitSettings.Drone.Supply, UnitSettings.Drone.Name)
+            : base(created, movingTime, ZergUnitSettings.Drone.Supply, ZergUnitSettings.Drone.Name)
         {
 
         }

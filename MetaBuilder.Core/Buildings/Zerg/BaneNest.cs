@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MetaBuilder.Core.Enum;
 using MetaBuilder.Core.Interfaces;
 using MetaBuilder.Core.Models;
+using MetaBuilder.Core.Settings;
 
 namespace MetaBuilder.Core.Buildings.Zerg
 {
@@ -15,7 +16,7 @@ namespace MetaBuilder.Core.Buildings.Zerg
 
 
         public BaneNest(double createdAt)
-            : base(createdAt, BuildingSettings.BaneNest.BuildTime, BuildingSettings.BaneNest.Name)
+            : base(createdAt, ZergBuildingSettings.BaneNest.BuildTime, ZergBuildingSettings.BaneNest.Name)
         {
         }
 

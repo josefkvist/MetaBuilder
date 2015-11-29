@@ -1,6 +1,7 @@
 ﻿using System;
 using MetaBuilder.Core.Enum;
 using MetaBuilder.Core.Models;
+using MetaBuilder.Core.Settings;
 
 namespace MetaBuilder.Core.Interfaces
 {
@@ -25,8 +26,8 @@ namespace MetaBuilder.Core.Interfaces
         public bool IsBuiltRightNow(double time)
         {
             var delta = time - _created - _buildTime;
-            var isBuiltRightNow = delta.ToMilliSeconds() 
-                < Settings.TimeStep.ToMilliSeconds() && delta.ToMilliSeconds() >= 0;
+            var isBuiltRightNow = delta.ToMilliSeconds()
+                < CoreSettings.TimeStep.ToMilliSeconds() && delta.ToMilliSeconds() >= 0;
             return isBuiltRightNow;
         }
         public virtual int PromilleDone(double time)

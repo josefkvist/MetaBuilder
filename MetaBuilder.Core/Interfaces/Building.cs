@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MetaBuilder.Core.Enum;
 using MetaBuilder.Core.Models;
+using MetaBuilder.Core.Settings;
 
 namespace MetaBuilder.Core.Interfaces
 {
@@ -29,7 +30,7 @@ namespace MetaBuilder.Core.Interfaces
         {
             var delta = time - _created - _buildTime;
 
-            return delta.ToMilliSeconds() < Settings.TimeStep.ToMilliSeconds() 
+            return delta.ToMilliSeconds() < CoreSettings.TimeStep.ToMilliSeconds() 
                 && delta.ToMilliSeconds() >= 0;
 
         }

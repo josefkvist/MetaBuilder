@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MetaBuilder.Core.Enum;
 using MetaBuilder.Core.Interfaces;
 using MetaBuilder.Core.Models;
+using MetaBuilder.Core.Settings;
 
 namespace MetaBuilder.Core.Buildings.Zerg
 {
@@ -13,7 +14,7 @@ namespace MetaBuilder.Core.Buildings.Zerg
     {
       
         public SpawningPool(double createdAt)
-            : base(createdAt, BuildingSettings.SpawningPool.BuildTime, BuildingSettings.SpawningPool.Name)
+            : base(createdAt, ZergBuildingSettings.SpawningPool.BuildTime, ZergBuildingSettings.SpawningPool.Name)
         {
         }
 

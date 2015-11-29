@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MetaBuilder.Core.Enum;
 using MetaBuilder.Core.Interfaces;
 using MetaBuilder.Core.Models;
+using MetaBuilder.Core.Settings;
 
 namespace MetaBuilder.Core.Buildings.Zerg
 {
@@ -15,7 +16,7 @@ namespace MetaBuilder.Core.Buildings.Zerg
        
 
         public RoachWaren(double createdAt)
-            : base(createdAt, BuildingSettings.RoachWaren.BuildTime, BuildingSettings.RoachWaren.Name)
+            : base(createdAt, ZergBuildingSettings.RoachWaren.BuildTime, ZergBuildingSettings.RoachWaren.Name)
         {
         }
 

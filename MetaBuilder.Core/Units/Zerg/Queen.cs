@@ -1,5 +1,6 @@
 ﻿using System;
 using MetaBuilder.Core.Interfaces;
+using MetaBuilder.Core.Settings;
 
 namespace MetaBuilder.Core.Units.Zerg
 {
@@ -11,7 +12,7 @@ namespace MetaBuilder.Core.Units.Zerg
         public int Energy { get; set; }
         
         public Queen(double created)
-            : base(created, UnitSettings.Queen.BuildTime, UnitSettings.Queen.Supply, UnitSettings.Queen.Name)
+            : base(created, ZergUnitSettings.Queen.BuildTime, ZergUnitSettings.Queen.Supply, ZergUnitSettings.Queen.Name)
         {
             Energy = 25;
         }
@@ -25,7 +26,7 @@ namespace MetaBuilder.Core.Units.Zerg
             var timerLeft = timeSinceBuilt % _energyTimer;
 
             if (Math.Abs(_energyTimer.ToMilliSeconds() - timerLeft.ToMilliSeconds() - _energyTimer.ToMilliSeconds())
-                < Settings.TimeStep.ToMilliSeconds()
+                < CoreSettings.TimeStep.ToMilliSeconds()
                  && _maxEnergy < 3)
             {
                 Energy++;

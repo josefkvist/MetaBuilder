@@ -1,11 +1,12 @@
 ﻿using MetaBuilder.Core.Interfaces;
+using MetaBuilder.Core.Settings;
 
 namespace MetaBuilder.Core.Units.Zerg
 {
     public class Baneling : Unit
     {
         public Baneling(double created)
-            : base(created, UnitSettings.Bane.BuildTime, UnitSettings.Bane.Supply, UnitSettings.Bane.Name)
+            : base(created, ZergUnitSettings.Bane.BuildTime, ZergUnitSettings.Bane.Supply, ZergUnitSettings.Bane.Name)
         {
         }
     }

@@ -1,28 +1,18 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
-using System.Net.Sockets;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 using MetaBuilder.Core.Buildings.Zerg;
-using MetaBuilder.Core.Enum;
 using MetaBuilder.Core.Interfaces;
 using MetaBuilder.Core.Models;
+using MetaBuilder.Core.Settings;
 using MetaBuilder.Core.Units.Zerg;
 using MetaBuilder.Core.Worker;
 
-namespace MetaBuilder.Core
+namespace MetaBuilder.Core.Bases
 {
-    public class Base
+    public class ZergBase : Base
     {
 
-        public Dictionary<int, IProduction> InProductions { get; set; }
 
         private List<CounterModel> _counters;
         private List<Unit> _units;
@@ -30,13 +20,10 @@ namespace MetaBuilder.Core
         private List<Hatchery> _hatcheries;
         private List<Overlord> _overLords;
         private List<IEnergy> _energies; 
-        private double _stepTime;
 
-        public Base(double stepTime)
+        public ZergBase(double stepTime) : base(stepTime)
         {
-            InProductions = new Dictionary<int, IProduction>();
             _energies = new List<IEnergy>();
-            _stepTime = stepTime;
             _counters = new List<CounterModel>();
             _units = new List<Unit>();
             _buildings = new List<Building>();
@@ -49,7 +36,7 @@ namespace MetaBuilder.Core
             for (int i = 0; i < 12; i++)
             {
                 //var drone = new MineralDrone(-Drone.UnitValues.BuildTime);
-                var drone = new MineralDrone(0.2 * i - UnitSettings.Drone.BuildTime);
+                var drone = new MineralDrone(0.2 * i - ZergUnitSettings.Drone.BuildTime);
                 mainHatch.AddMineralDrone(drone);
                 _units.Add(drone);
 
@@ -62,7 +49,7 @@ namespace MetaBuilder.Core
 
         public void StepForward()
         {
-            var time = Math.Round(_counters.Count*_stepTime,3);
+            var time = Math.Round(_counters.Count*StepTime,3);
 
             var currentCounter = StepForHatcheries(time);
 
@@ -186,14 +173,14 @@ namespace MetaBuilder.Core
         public bool TryBuildDrone<T>(int key) where T : Drone
         {
             var currentCounter = _counters.Last();
-            var time = (_counters.Count - 1)*_stepTime;
+            var time = (_counters.Count - 1)*StepTime;
             var hatchWithLarva = _hatcheries.FirstOrDefault(x => x.HasLarvas());
-            if (currentCounter.Minerals >= UnitSettings.Drone.Cost.Minerals 
+            if (currentCounter.Minerals >= ZergUnitSettings.Drone.Cost.Minerals 
                 && hatchWithLarva != null 
-                && currentCounter.SupplyLimit >= currentCounter.Supply + UnitSettings.Drone.Supply)
+                && currentCounter.SupplyLimit >= currentCounter.Supply + ZergUnitSettings.Drone.Supply)
             {
-                currentCounter.Minerals -= UnitSettings.Drone.Cost.Minerals;
-                currentCounter.Supply += (int)UnitSettings.Drone.Supply;
+                currentCounter.Minerals -= ZergUnitSettings.Drone.Cost.Minerals;
+                currentCounter.Supply += (int)ZergUnitSettings.Drone.Supply;
                 hatchWithLarva.ConsumeLarva();
                 if (typeof (T) == typeof (MineralDrone))
                 {
@@ -218,11 +205,11 @@ namespace MetaBuilder.Core
         public bool TryBuildOverlord(int key)
         {
             var currentCounter = _counters.Last();
-            var time = (_counters.Count - 1) * _stepTime;
+            var time = (_counters.Count - 1) * StepTime;
             var hatchWithLarva = _hatcheries.FirstOrDefault(x => x.HasLarvas());
-            if (currentCounter.Minerals >= UnitSettings.Overlord.Cost.Minerals && hatchWithLarva != null)
+            if (currentCounter.Minerals >= ZergUnitSettings.Overlord.Cost.Minerals && hatchWithLarva != null)
             {
-                currentCounter.Minerals -= UnitSettings.Overlord.Cost.Minerals;
+                currentCounter.Minerals -= ZergUnitSettings.Overlord.Cost.Minerals;
                 hatchWithLarva.ConsumeLarva();
                 var ol = new Overlord(time);
                 _overLords.Add(ol);
@@ -282,17 +269,17 @@ namespace MetaBuilder.Core
             var hatch = _buildings.FirstOrDefault(x => x.IsIdle(time) && x.GetType() == typeof(Hatchery)) as Hatchery;
             var poolIsFinished = _buildings.Any(x => x.IsFinished(time) && x.GetType() == typeof (SpawningPool));
             if (hatch == null) return false;
-            if (currentCounter.Minerals < UnitSettings.Queen.Cost.Minerals || !poolIsFinished)
+            if (currentCounter.Minerals < ZergUnitSettings.Queen.Cost.Minerals || !poolIsFinished)
                 return false;
             if (hatch.SwitchIdle()) return false;
-            currentCounter.Minerals -= UnitSettings.Queen.Cost.Minerals;
+            currentCounter.Minerals -= ZergUnitSettings.Queen.Cost.Minerals;
             var queen = new Queen(time);
             if(hatch.Queen == null)
                 hatch.Queen = queen;
             InProductions.Add(key, queen);
             _units.Add(queen);
             _energies.Add(queen);
-            Console.WriteLine("Time: " + (time).ToMinuteString() + ", " + UnitSettings.Queen.Name + " started");
+            Console.WriteLine("Time: " + (time).ToMinuteString() + ", " + ZergUnitSettings.Queen.Name + " started");
             return true;
         }
 
@@ -300,9 +287,9 @@ namespace MetaBuilder.Core
         {
             var currentCounter = _counters.Last();
             var time = GetActualTime();
-            if (currentCounter.Minerals >= BuildingSettings.Hatchery.Cost.Minerals)
+            if (currentCounter.Minerals >= ZergBuildingSettings.Hatchery.Cost.Minerals)
             {
-                currentCounter.Minerals -= BuildingSettings.Hatchery.Cost.Minerals;
+                currentCounter.Minerals -= ZergBuildingSettings.Hatchery.Cost.Minerals;
                 _units.Remove(drone);
                 var hatch = new Hatchery(time, false);
                 _buildings.Add(hatch);
@@ -318,11 +305,11 @@ namespace MetaBuilder.Core
         public bool TryBuildExtractor(int key)
         {
             var currentCounter = _counters.Last();
-            var time = (_counters.Count - 1) * _stepTime;
+            var time = (_counters.Count - 1) * StepTime;
             var hatch = _hatcheries.FirstOrDefault(x=>x.Extractors.Count < 2);
-            if (currentCounter.Minerals >= BuildingSettings.Extractor.Cost.Minerals && hatch != null)
+            if (currentCounter.Minerals >= ZergBuildingSettings.Extractor.Cost.Minerals && hatch != null)
             {
-                currentCounter.Minerals -= BuildingSettings.Extractor.Cost.Minerals;
+                currentCounter.Minerals -= ZergBuildingSettings.Extractor.Cost.Minerals;
                 var drone = hatch.RemoveMineralDrone(time);
                 _units.Remove(drone);
                 var hatchIndex = _hatcheries.IndexOf(hatch);
@@ -372,7 +359,7 @@ namespace MetaBuilder.Core
                     var drone = fromHatch.RemoveMineralDrone(GetActualTime());
                     var success = _units.Remove(drone);
                     if (!success) throw new Exception("unit wasn't removed");
-                    var newDrone = MineralDrone.MoveDrone(GetActualTime(), Settings.TimeBetweenHatcheries);
+                    var newDrone = MineralDrone.MoveDrone(GetActualTime(), ZergSettings.TimeBetweenHatcheries);
                     _units.Add(newDrone);
                     toHatch.AddMineralDrone(newDrone);
                 }
@@ -398,11 +385,11 @@ namespace MetaBuilder.Core
             MovingDrone newDrone;
             if (building == typeof (Hatchery))
             {
-                newDrone = new MovingDrone(GetActualTime(), Settings.TimeBetweenHatcheries);
+                newDrone = new MovingDrone(GetActualTime(), ZergSettings.TimeBetweenHatcheries);
             }
             else
             {
-                newDrone = new MovingDrone(GetActualTime(), Settings.TimeToMoveToBuildingSpot);
+                newDrone = new MovingDrone(GetActualTime(), ZergSettings.TimeToMoveToBuildingSpot);
             }
             InProductions.Add(key, newDrone);
             _units.Add(newDrone);
@@ -472,7 +459,7 @@ namespace MetaBuilder.Core
 
         public double GetActualTime()
         {
-            return Math.Round((Counters.Count - 1)*Settings.TimeStep, 3);
+            return Math.Round((Counters.Count - 1) * CoreSettings.TimeStep, 3);
         }
 
         public void PrintHatcheriesSaturation()

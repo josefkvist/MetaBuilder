@@ -2,6 +2,7 @@
 using System.Linq;
 using MetaBuilder.Core.Enum;
 using MetaBuilder.Core.Interfaces;
+using MetaBuilder.Core.Settings;
 using MetaBuilder.Core.Worker;
 
 namespace MetaBuilder.Core.Buildings.Zerg
@@ -14,7 +15,7 @@ namespace MetaBuilder.Core.Buildings.Zerg
         public int HatchIndex { get; set; }
 
         public Extractor(double createdAt) 
-            : base(createdAt, BuildingSettings.Extractor.BuildTime, BuildingSettings.Extractor.Name)
+            : base(createdAt, ZergBuildingSettings.Extractor.BuildTime, ZergBuildingSettings.Extractor.Name)
         {
             GasPerDrone = 4;
             GasDrones = new List<GasDrone>();

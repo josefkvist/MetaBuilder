@@ -1,6 +1,7 @@
 ﻿using System;
 using MetaBuilder.Core.Interfaces;
 using MetaBuilder.Core.Models;
+using MetaBuilder.Core.Settings;
 
 namespace MetaBuilder.Core.Units.Zerg
 {
@@ -8,12 +9,12 @@ namespace MetaBuilder.Core.Units.Zerg
     {
         public new int Supply { get; private set; }
      
-        public Overlord() :this(-UnitSettings.Overlord.BuildTime)
+        public Overlord() :this(-ZergUnitSettings.Overlord.BuildTime)
         {
         }
 
         public Overlord(double created) 
-            : base(created, UnitSettings.Overlord.BuildTime, UnitSettings.Overlord.Supply, UnitSettings.Overlord.Name)
+            : base(created, ZergUnitSettings.Overlord.BuildTime, ZergUnitSettings.Overlord.Supply, ZergUnitSettings.Overlord.Name)
         {
             Supply = 8;
         }

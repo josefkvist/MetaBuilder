@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using MetaBuilder.Core.Settings;
 using MetaBuilder.Core.Units.Zerg;
 
 namespace MetaBuilder.Core.Worker
@@ -19,7 +20,7 @@ namespace MetaBuilder.Core.Worker
 
         public GasDrone(double createdAt) : base(createdAt)
         {
-            _startedAt = createdAt + UnitSettings.Drone.BuildTime;
+            _startedAt = createdAt + ZergUnitSettings.Drone.BuildTime;
         }
 
         public bool HasFinishedMining(double time, int noOfDrones)
@@ -28,7 +29,7 @@ namespace MetaBuilder.Core.Worker
 
             var timeLeftTilReturn = TimeLeftTilReturn(time, noOfDrones);
             if (timeLeftTilReturn < 0) return false;
-            if (timePerTurn.ToMilliSeconds() - timeLeftTilReturn < Settings.TimeStep.ToMilliSeconds())
+            if (timePerTurn.ToMilliSeconds() - timeLeftTilReturn < CoreSettings.TimeStep.ToMilliSeconds())
                 return true;
         
             return false;

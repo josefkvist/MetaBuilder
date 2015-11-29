@@ -39,7 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base.cs" />
+    <Compile Include="Bases\Base.cs" />
+    <Compile Include="Bases\ZergBase.cs" />
     <Compile Include="Buildings\Zerg\EvolutionChamber.cs" />
     <Compile Include="Buildings\Zerg\Extractor.cs" />
     <Compile Include="Buildings\Zerg\Hatchery.cs" />
@@ -52,7 +53,8 @@
     <Compile Include="KeyGenerator.cs" />
     <Compile Include="Models\IProduction.cs" />
     <Compile Include="Models\UpgradeValues.cs" />
-    <Compile Include="Settings.cs" />
+    <Compile Include="Settings\Settings.cs" />
+    <Compile Include="Settings\ZergSettings.cs" />
     <Compile Include="Models\BuildingValues.cs" />
     <Compile Include="Models\Cost.cs" />
     <Compile Include="Models\CounterModel.cs" />
